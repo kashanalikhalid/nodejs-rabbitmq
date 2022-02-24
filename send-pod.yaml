@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: receive-pod
+  labels:
+    component: receive
+spec:
+  containers:
+    - name: receive
+      image: kashanalikhalid/nodejs-rabbitmq-send
+  ports:
+    - containerPort: 3000
+
+
