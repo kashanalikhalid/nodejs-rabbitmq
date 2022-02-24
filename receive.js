@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
+app.get('/:data', (req, res) => {
 
     amqp.connect('amqp://rabbit',  function(error0, connection) {
         if (error0) {
