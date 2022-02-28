@@ -5,13 +5,18 @@ const port = 3000
 
 app.get('/:data', (req, res) => {
 
-    amqp.connect('amqp://rabbit', function(error0, connection) {
+    amqp.connect({protocol: 'amqp',hostname: '10.104.102.101',vhost: 'storage-collector-dev'}, function(error0, connection) {
         if (error0) {
-            throw error0;
+            res.json({
+                "status": error0,
+            })
         }
+        console.log(connection)
         connection.createChannel(function(error1, channel) {
             if (error1) {
-                throw error1;
+                res.json({
+                    "status": error0,
+                })
             }
             var queue = 'hello';
             var msg = req.params.data;
@@ -23,11 +28,9 @@ app.get('/:data', (req, res) => {
             channel.sendToQueue(queue, Buffer.from(msg));
             console.log(" [x] Sent %s", msg);
         });
-
-        setTimeout(function() {
-            connection.close();
-            process.exit(0)
-        }, 500);
+        res.json({
+            "status": "success",
+        })
     });
 
 })
