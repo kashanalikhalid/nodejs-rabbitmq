@@ -18,12 +18,12 @@ app.get('/:data', (req, res) => {
                     "status": error0,
                 })
             }
-            var queue = 'hello';
+            var queue = 'youniq.microservices.branddetection.emailbrandnotfoundevent';
             var msg = req.params.data;
 
-            channel.assertQueue(queue, {
-                durable: false
-            });
+            // channel.assertQueue(queue, {
+            //     durable: false
+            // });
 
             channel.sendToQueue(queue, Buffer.from(msg));
             console.log(" [x] Sent %s", msg);
